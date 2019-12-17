@@ -53,14 +53,14 @@ module.exports = {
 	output: {
 	    filename:"ScrollSlider.js",
 		path: path.resolve(__dirname,'dest'),
-		// libraryTarget:"umd"
+		libraryTarget:"umd"
 	},
 
 	mode: 'development',
-	externals:[
-		'jquery',
-		'jquery.easing'
-	],
+	externals:{
+		jquery:'jquery',
+		'jquery.easing':'jquery.easing'
+	},
 	// devtool: '#eval-source-map',
 	optimization: {
 		splitChunks: {
