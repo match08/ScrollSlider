@@ -4,9 +4,10 @@ Be based on Sly: https://github.com/darsain/sly
 
 npm:
   npm install https://github.com/match08/ScrollSlider.git
-  
+  ```
   import ScrollSlider from 'scroll-slider';
-  
+  ```
+  ```
   <div className="horizontal slyWrap">
     <div class"sly">
         <ul>
@@ -49,3 +50,4 @@ npm:
         </ul>
     </div>
   </div>
+```
