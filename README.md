@@ -7,6 +7,19 @@ npm: npm install https://github.com/match08/ScrollSlider.git --save
   import ScrollSlider from 'scroll-slider';
   ```
   ```
+    let scrollSlider = new ScrollSlider(document.querySelector('.sly'), {
+        // prev: '#prev-btn',
+        // next: '#next-btn',
+        startAt: 0
+      },
+      {
+        active: (e, index) => {
+          console.log(index);
+  
+        }
+      });
+  ```
+  ```
   <div className="horizontal slyWrap">
     <div class"sly">
         <ul>
