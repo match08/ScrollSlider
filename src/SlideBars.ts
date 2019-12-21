@@ -1719,7 +1719,7 @@ export default class SlideBars{
         this.dragging.pathToLock = isSlidee ? isTouch ? 30 : 10 : 0;
 
         // Bind dragging events
-        this.$doc.on(isTouch ? this.dragTouchEvents : this.dragMouseEvents, this.dragHandler.bind(this));
+        this.$doc.on(isTouch ? this.dragTouchEvents : this.dragMouseEvents, this.dragHandler);
 
         // Pause ongoing cycle
         this.pause(1);
@@ -1805,7 +1805,7 @@ export default class SlideBars{
     private dragEnd() {
         clearInterval(this.historyID);
         this.dragging.released = true;
-        this.$doc.off(this.dragging.touch ? this.dragTouchEvents : this.dragMouseEvents, this.dragHandler.bind(this));
+        this.$doc.off(this.dragging.touch ? this.dragTouchEvents : this.dragMouseEvents, this.dragHandler);
         (this.dragging.slidee ? this.$slidee : this.$handle).removeClass(this.o.draggedClass);
 
         // Make sure that disableOneEvent is not active in next tick.
@@ -2164,6 +2164,9 @@ export default class SlideBars{
             $movables.css({ position: 'absolute' });
         }
 
+        this.dragHandler = this.dragHandler.bind(this);    
+        this.dragInit = this.dragInit.bind(this);
+        
         // Navigation buttons
         if (this.o.forward) {
             this.$forwardButton.on(this.mouseDownEvent, this.buttonsHandler);
@@ -2203,11 +2206,11 @@ export default class SlideBars{
         }
 
         // Dragging navigation
-        this.$dragSource.on(this.dragInitEvents, { source: 'slidee' }, this.dragInit.bind(this));
+        this.$dragSource.on(this.dragInitEvents, { source: 'slidee' }, this.dragInit);
 
         // Scrollbar dragging navigation
         if (this.$handle) {
-            this.$handle.on(this.dragInitEvents, { source: 'handle' }, this.dragInit.bind(this));
+            this.$handle.on(this.dragInitEvents, { source: 'handle' }, this.dragInit);
         }
         
         // Keyboard navigation
