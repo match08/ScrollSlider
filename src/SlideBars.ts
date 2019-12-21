@@ -2062,7 +2062,7 @@ export default class SlideBars{
      *
      * @return {Void}
      */
-    private destroy () {
+    public destroy () {
         // Remove the reference to itself
         SlideBars.removeInstance(this.frame, this.namespace);
 
