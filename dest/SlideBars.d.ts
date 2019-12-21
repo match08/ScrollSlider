@@ -552,7 +552,7 @@ export default class SlideBars {
  *
  * @return {Void}
  */
-    private destroy;
+    destroy(): this;
     /**
      * Initialize.
      *
