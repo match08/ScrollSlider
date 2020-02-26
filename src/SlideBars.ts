@@ -237,10 +237,17 @@ export default class SlideBars{
 		this.o = $.extend({}, this.defaults, options);
 
         if (frame instanceof HTMLElement)
-        {
-            this.mutationObserver(frame, ()=>{
-                this.create(frame);
-            });
+        {   
+            if(frame.clientWidth == 0)
+            {
+                this.mutationObserver(frame, ()=>{
+                    setTimeout(() => this.create(frame), 100);
+                });
+            }
+            else
+            {
+                setTimeout(() => this.create(frame), 100);
+            }
         }
         else
         {
