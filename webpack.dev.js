@@ -59,7 +59,8 @@ module.exports = {
 	mode: 'development',
 	externals:{
 		jquery:'jquery',
-		'jquery.easing':'jquery.easing'
+		'jquery.easing':'jquery.easing',
+		'resize-observer-polyfill':'resize-observer-polyfill',
 	},
 	// devtool: '#eval-source-map',
 	optimization: {

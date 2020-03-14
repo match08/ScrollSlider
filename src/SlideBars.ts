@@ -6,6 +6,8 @@
  */
 let $ = require('jquery');
 let easing = require('jquery.easing');
+import ResizeObserver from 'resize-observer-polyfill';
+
 
 export default class SlideBars{
 
@@ -461,24 +463,20 @@ export default class SlideBars{
      */
     private mutationObserver(element:Node, ready:Function)
     {
-        var observer = new MutationObserver((mutationsList:any, mutationObserver)=>{
-          
-            for(var mutation of mutationsList)
-            {
-                if(mutation.target.clientWidth>0)
+        const observer = new ResizeObserver((entries, observer) => {
+            for (const entry of entries) {
+                const {left, top, width, height} = entry.contentRect;
+                console.log('Element:', entry.target);
+                console.log(`Element's size: ${ width }px x ${ height }px`);
+                console.log(`Element's paddings: ${ top }px ; ${ left }px`);
+                if(width>0)
                 {
                     observer.disconnect();
-                    mutationObserver.disconnect();
                     ready();
-                    break;
                 }
             }
         });
-        if(element)
-        {
-            observer.observe(element, {attributes: true, childList: true, subtree: true});
-        }
-
+        observer.observe(document.body);
     }
     /**
      * Loading function.
