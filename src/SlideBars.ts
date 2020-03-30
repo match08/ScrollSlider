@@ -2,7 +2,7 @@
  * @Author: bai 
  * @Date: 2019-12-04 13:52:17 
  * @Last Modified by: bai
- * @Last Modified time: 2019-12-17 11:52:05
+ * @Last Modified time: 2020-03-30 15:13:09
  */
 let $ = require('jquery');
 let easing = require('jquery.easing');
@@ -160,6 +160,7 @@ export default class SlideBars{
         });
         
         this.callbackMap = callbackMap;
+        this.callbacks = {};
 
         //Sly ------------------------------------------------------------------------
     
@@ -256,7 +257,7 @@ export default class SlideBars{
             throw new Error('Must HTMLElement type !');
         }
     }
-
+    
     create(frame)
     {
         	// Private variables
@@ -322,8 +323,11 @@ export default class SlideBars{
 		this.$prevButton = $(this.o.prev);
 		this.$nextButton = $(this.o.next);
 		this.$prevPageButton = $(this.o.prevPage);
-		this.$nextPageButton = $(this.o.nextPage);
-		this.callbacks = {};
+        this.$nextPageButton = $(this.o.nextPage);
+        
+        if(!this.callbacks) 
+            this.callbacks  = {};
+
 		this.last = {};
 		this.animation = {};
 		this.move = {};
@@ -466,9 +470,9 @@ export default class SlideBars{
         const observer = new ResizeObserver((entries, observer) => {
             for (const entry of entries) {
                 const {left, top, width, height} = entry.contentRect;
-                console.log('Element:', entry.target);
-                console.log(`Element's size: ${ width }px x ${ height }px`);
-                console.log(`Element's paddings: ${ top }px ; ${ left }px`);
+                // console.log('Element:', entry.target);
+                // console.log(`Element's size: ${ width }px x ${ height }px`);
+                // console.log(`Element's paddings: ${ top }px ; ${ left }px`);
                 if(width>0)
                 {
                     observer.disconnect();
@@ -1921,7 +1925,6 @@ export default class SlideBars{
      * @return {Void}
      */
     private scrollHandler(event) {
-        console.log('scrollHandler', event);
         // Mark event as originating in a Sly instance
         event.originalEvent[this.namespace] = this;
         // Don't hijack global scrolling
@@ -1950,7 +1953,6 @@ export default class SlideBars{
      * @return {Void}
      */
     private scrollbarHandler(event) {
-        console.log('scrollbarHandler',event)
         // Only clicks on scroll bar. Ignore the handle.
         if (this.o.clickBar && event.target === this.$sb[0]) {
             this.stopDefault(event);
@@ -2171,6 +2173,7 @@ export default class SlideBars{
 
         this.dragHandler = this.dragHandler.bind(this);    
         this.dragInit = this.dragInit.bind(this);
+        this.disableOneEvent = this.disableOneEvent.bind(this);
         
         // Navigation buttons
         if (this.o.forward) {
